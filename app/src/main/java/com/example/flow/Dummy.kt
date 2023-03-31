@@ -1,20 +1,27 @@
 package com.example.flow
-/*
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.asFlow
 
-fun getShippingDetails(userList: List<User>): Flow<ShippingDetail> {
-    return flow {
-        userList.forEach{
-            val user= getUser(it.id)
-            val shippingAddress = getShippingAddress(user.address)
-            val shippingDetails = calculateShippingCharges(shippingAddress)
-        }
-    }
+fun getNotes():Flow<Note>{
+    val list = listOf(
+        Note(1, true, "First", "First Description"),
+        Note(1, true, "Second", "Second Description"),
+        Note(1, false, "Third", "Third Description")
+    )
+    return list.asFlow()
 }
 
-fun main(){
-    val userList = getUserList()
-    val shippingDetails: Flow<ShippingDetail> = getShippingDetails(userList)
-}*/
+
+data class Note(
+    val id:Int,
+    val isActive: Boolean,
+    val title:String,
+    val description:String
+)
+
+data class FormattedNote(
+    val isActive: Boolean,
+    val title:String,
+    val description:String
+)

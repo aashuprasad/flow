@@ -9,28 +9,26 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class MainActivity2 : AppCompatActivity() {
+class MainActivity3 : AppCompatActivity() {
     val TAG:String = "KOTLIN_DEBUG"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
-
+        setContentView(R.layout.activity_main3)
         GlobalScope.launch(Dispatchers.Main) {
-            producer()
+            getNotes()
                 .map {
-                    it*2
+                    FormattedNote(it.isActive, it.title.uppercase(), it.description)
                 }
                 .filter {
-                    it<8
+                    it.isActive
                 }
                 .collect{
                     Log.d(TAG, it.toString())
                 }
-
         }
     }
 
-    private fun producer(): Flow<Int>{
+    private fun producer(): Flow<Int> {
         return flow {
             val list = listOf(1,2,3,4,5)
             list.forEach{
